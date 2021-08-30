@@ -3,7 +3,7 @@
 
 ## **A. Cài đặt ROS**
 
-
+[Cài đặt ROS Noetic trên Ubuntu 20.04](http://wiki.ros.org/noetic/Installation/Ubuntu) 
 
 ## **B. Tạo Workspace và Package**
 
