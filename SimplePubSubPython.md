@@ -1,17 +1,17 @@
 # ROS_Basics
-## Creating simple python publish and subscribe nodes 
+## Tạo node Publish và Subscribe cơ bản với Python
 
-## **A. Install ROS**
+## **A. Cài đặt ROS**
 
 
 
-## **B. Creating Workspace and Package**
+## **B. Tạo Workspace và Package**
 
-### **1. Create a workspace**
+### **1. Tạo workspace**
 
 **1.1. Workspace**
 
-* Create a directory named *‘FAIlearning_ws’* and then create a source folder. All our ROS packages will be in this source folder. Running *'catkin_make'* command will make this current directory a catkin workspace and also compile it. The workspace now is *‘FAIlearning_ws’*
+* Tạo đường dẫn có tên là *‘FAIlearning_ws’* và tạo thư mục src (source). Các ROS packages sẽ được lưu trong thư mục source này. Sau đó, chạy lệnh  *'catkin_make'* trong *'FAIlearning_ws'* để chuyển đường dẫn này thành ROS workspace. 
 
 ```shell
 $ mkdir -p ~/FAIlearning_ws/src
@@ -72,7 +72,7 @@ Creating symlink "/home/hoangtu/FAIlearning_ws/src/CMakeLists.txt" pointing to "
 #### Running command: "make -j2 -l2" in "/home/hoangtu/FAIlearning_ws/build"
 ####
 ```
-
+Sau khi chạy *'catkin_make'* thành công, Workspace sẽ bao gồm 3 thư mục sau
 ```shell
 $ ls
 build  devel  src
@@ -82,29 +82,35 @@ build  devel  src
 $ source ~/FAIlearning_ws/devel/setup.bash
 ```
 
-**1.2. Environment Setup**
+**1.2. Environment Setup (Thiết lập môi trường)**
 
+Mỗi khi bật một terminal mới thì phải chạy lại lệnh source cho file setup.bash của mỗi workspace 
 ```shell
 $ source /opt/ros/noetic/setup.bash
 $ source ~/FAIlearning_ws/devel/setup.bash
 ```
+Vì thế để tiện lợi hơn thì sẽ để các lệnh trên chạy tự động mỗi lần bật terminal
 
+Mở file bashrc
 ```shell
 $ gedit ~/.bashrc
 ```
-
+Thêm các dòng sau vào cuối file và lưu lại
 ```
 # ROS environment setup
 source /opt/ros/noetic/setup.bash
 source ~/FAIlearning_ws/devel/setup.bash
 ```
 
-### **2. Create a package**
+### **2. Tạo một package**
 
+Sau khi đã tạo xong workspace, ta sẽ tạo các package trong workspace đó
+
+Cú pháp sau sẽ được dùng để tạo package
 ```
 catkin_create_pkg <package_name> [depend1] [depend2] [depend3]
 ```
-
+Vào thư mục src trong workspace và chạy tạo package có tên là *'ros_basic_pkg'*
 ```shell
 $ cd ~/FAIlearning_ws/src
 $ catkin_create_pkg ros_basic_pkg std_msgs rospy roscpp
@@ -119,7 +125,7 @@ Created folder ros_basic_pkg/include/ros_basic_pkg
 Created folder ros_basic_pkg/src
 Successfully created files in /home/hoangtu/FAIlearning_ws/src/ros_basic_pkg. Please adjust the values in package.xml.
 ```
-
+Chạy lệnh *'catkin_make'* để build lại workspace cùng các file vùa mới được tạo
 ```sh
 $ cd ~/FAIlearning_ws/
 $ catkin_make
@@ -167,22 +173,25 @@ Install space: /home/hoangtu/FAIlearning_ws/install
 #### Running command: "make -j2 -l2" in "/home/hoangtu/FAIlearning_ws/build"
 ####
 ```
-
+Chạy file setup.bash
 ```sh
 $ source ~/FAIlearning_ws/devel/setup.bash
 ```
 
-## **C. Creating simple Publish and Subscribe nodes**
+## **C. Tạo node Publish và Subscribe cơ bản với Python**
 
+Vào package vừa được tạo ở phần trước 
 ```sh
 $ cd ~/FAIlearning_ws/
 $ roscd ros_basic_pkg/
 ```
-
+Tạo thư mục scripts, các file python sẽ được lưu vào thư mục này
 ```sh
 $ mkdir scripts
 $ cd scripts/
 ```
+
+Chương trình cho node Publish và Subscribe
 
 **Node 1**: publisher.py
 
@@ -232,12 +241,12 @@ def subscriber():
 if __name__ == '__main__':
     subscriber()
 ```
-
+Tạo file executable từ 2 script Python vừa được tạo
 ```shell 
 $ chmod +x publisher.py
 $ chmod +x subscriber.py 
 ```
-
+Build lại toàn bộ workspace
 ```sh
 $ cd ~/FAIlearning_ws/
 $ catkin_make
@@ -260,8 +269,8 @@ Install space: /home/hoangtu/FAIlearning_ws/install
 
 ```
 
-## **D. Running ROS and testing nodes**
-Open a new Terminal and start ROS:
+## **D. Chạy ROS và test các node vừa tạo**
+Bật một terminal mới lên và chạy *'roscore'*, lệnh này sẽ khởi động ros master
 ```sh
 $ roscore
 ```
@@ -297,13 +306,13 @@ started core service [/rosout]
 
 ```
 
-Run Nodes
+Cú pháp để chạy các node
 
 ```sh
 $ rosrun [package_name] [node_name]
 ```
 
-Open a new Terminal and run the following command to run the publisher node
+Mở một terminal mới lên và chạy node Publisher
 ```sh
 $ rosrun ros_basic_pkg publisher.py
 ```
@@ -333,7 +342,7 @@ Output:
 
 ```
 
-Open a new Terminal and run the following command to run the subscriber node
+Mở một terminal mới lên và chạy node Publisher
 ```sh
 $ rosrun ros_basic_pkg subscriber.py
 ```
